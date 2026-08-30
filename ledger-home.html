@@ -14,23 +14,39 @@
 
 <style>
   html,body{margin:0;height:100%;background:#F7F4EF;overflow:hidden;
-    display:flex;align-items:center;justify-content:center;
-    font-family:-apple-system,system-ui,sans-serif;color:#8B8378;
-    font-size:13px;letter-spacing:.18em;text-transform:uppercase}
+    display:flex;align-items:center;justify-content:center;padding:24px;
+    font-family:-apple-system,system-ui,sans-serif;color:#524B42;text-align:center}
+  #msg{font-size:15px;line-height:1.6;max-width:320px}
+  #msg b{display:block;font-size:20px;color:#1F1C18;margin-bottom:10px}
+  a.btn{display:inline-block;margin-top:16px;background:#1F1C18;color:#F7F4EF;
+    padding:12px 22px;border-radius:12px;text-decoration:none;font-weight:600}
 </style>
-
-<!--
-  NOT an iframe on purpose. Google blocks its own sign-in cookies inside
-  a frame embedded on someone else's page (that's what caused the error
-  popup). A straight redirect avoids that entirely, because the browser
-  ends up directly on script.google.com rather than framing it.
-  The home-screen icon and name still come from THIS page's own tags above.
--->
-<script>
-  location.replace("https://script.google.com/macros/s/AKfycbxCaE3TRjGxgCgDeO_Y6BjFXxq-ah8E6XbdRNC9ie8/dev");
-</script>
 </head>
 <body>
-Opening Ledger&hellip;
+<div id="msg">
+  <b>Ledger</b>
+  Tap the Share button below, then <b>Add to Home Screen</b> to install.
+  <br><br>
+  <a class="btn" id="openNow" href="#">Open it now instead</a>
+</div>
+
+<script>
+  // PASTE YOUR WORKING LINK BELOW, between the quotes.
+  // This is the exact link you already tested and confirmed opens Ledger
+  // correctly in Safari (the one with a/~/ in it, plus &authuser=... if you
+  // added that too). Do not change anything else in this file.
+  var LEDGER_URL = "https://script.google.com/macros/s/AKfycbw3EAe7iPDjcyaNIh_it7pvqMdr97BWWBE3GfYArenBOUo-MkclJXOnSbaOY2uYGrBg/exec";
+
+  document.getElementById('openNow').href = LEDGER_URL;
+
+  // The important part: only redirect automatically when this page is
+  // running as the installed home-screen icon (standalone mode). While
+  // you're viewing it as a normal Safari tab -- which is exactly when you
+  // need to tap Share -> Add to Home Screen -- it stays right here, so
+  // there is always a safe moment to add the icon before anything redirects.
+  if (window.navigator.standalone === true) {
+    location.replace(LEDGER_URL);
+  }
+</script>
 </body>
 </html>
