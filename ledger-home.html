@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <title>Ledger</title>
 
-<!-- Home screen identity. iOS reads these when you tap Add to Home Screen. -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Ledger">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -15,25 +14,23 @@
 
 <style>
   html,body{margin:0;height:100%;background:#F7F4EF;overflow:hidden;
-    -webkit-tap-highlight-color:transparent}
-  iframe{border:0;display:block;width:100%;height:100%}
-  /* Shown only until the app loads. */
-  #splash{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
-    background:#F7F4EF;font-family:-apple-system,system-ui,sans-serif;color:#8B8378;
-    font-size:13px;letter-spacing:.18em;text-transform:uppercase;z-index:2}
+    display:flex;align-items:center;justify-content:center;
+    font-family:-apple-system,system-ui,sans-serif;color:#8B8378;
+    font-size:13px;letter-spacing:.18em;text-transform:uppercase}
 </style>
-</head>
-<body>
-<div id="splash">Ledger</div>
 
 <!--
-  PUT YOUR /exec URL BELOW.
-  Apps Script > Deploy > Manage deployments > copy the Web app URL.
-  It looks like: https://script.google.com/macros/s/AKfy..../exec
+  NOT an iframe on purpose. Google blocks its own sign-in cookies inside
+  a frame embedded on someone else's page (that's what caused the error
+  popup). A straight redirect avoids that entirely, because the browser
+  ends up directly on script.google.com rather than framing it.
+  The home-screen icon and name still come from THIS page's own tags above.
 -->
-<iframe id="app"
-        src="https://script.google.com/macros/s/AKfycbw3EAe7iPDjcyaNIh_it7pvqMdr97BWWBE3GfYArenBOUo-MkclJXOnSbaOY2uYGrBg/exec"
-        allow="clipboard-write; vibrate"
-        onload="document.getElementById('splash').style.display='none'"></iframe>
+<script>
+  location.replace("https://script.google.com/macros/s/AKfycbw3EAe7iPDjcyaNIh_it7pvqMdr97BWWBE3GfYArenBOUo-Mkc1JXOnSbaOY2uYGrBg/exec");
+</script>
+</head>
+<body>
+Opening Ledger&hellip;
 </body>
 </html>
